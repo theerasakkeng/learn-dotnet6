@@ -1,0 +1,3 @@
+Server=localhost,1433;Database=ExammpleDB;User Id=sa;Password=Keng1234;"
+
+dotnet-ef dbcontext scaffold "Server=localhost,1433;Database=ExampleDB;User id=sa;Password=Keng1234" Microsoft.EntityFrameworkCore.SqlServer --output-dir Models --context Entities --use-database-names -t countries -t departments -t dependents -t employees -t jobs -t locations -t regions --project TestApp --force
