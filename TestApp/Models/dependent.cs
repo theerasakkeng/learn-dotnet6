@@ -10,7 +10,5 @@ namespace TestApp.Models
         public string last_name { get; set; } = null!;
         public string relationship { get; set; } = null!;
         public int employee_id { get; set; }
-
-        public virtual employee employee { get; set; } = null!;
     }
 }

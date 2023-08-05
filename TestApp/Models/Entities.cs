@@ -23,12 +23,22 @@ namespace TestApp.Models
         public virtual DbSet<job> jobs { get; set; } = null!;
         public virtual DbSet<location> locations { get; set; } = null!;
         public virtual DbSet<region> regions { get; set; } = null!;
+
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//                optionsBuilder.UseSqlServer("Server=localhost,1433;Database=ExampleDB;User id=sa;Password=Keng1234");
+//            }
+//        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<country>(entity =>
             {
                 entity.HasKey(e => e.country_id)
-                    .HasName("PK__countrie__7E8CD055A81B12E2");
+                    .HasName("PK__countrie__7E8CD055E198F519");
 
                 entity.Property(e => e.country_id)
                     .HasMaxLength(2)
@@ -38,33 +48,22 @@ namespace TestApp.Models
                 entity.Property(e => e.country_name)
                     .HasMaxLength(40)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.region)
-                    .WithMany(p => p.countries)
-                    .HasForeignKey(d => d.region_id)
-                    .HasConstraintName("FK__countries__regio__286302EC");
             });
 
             modelBuilder.Entity<department>(entity =>
             {
                 entity.HasKey(e => e.department_id)
-                    .HasName("PK__departme__C22324227CC5084F");
+                    .HasName("PK__departme__C223242278A61985");
 
                 entity.Property(e => e.department_name)
                     .HasMaxLength(30)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.location)
-                    .WithMany(p => p.departments)
-                    .HasForeignKey(d => d.location_id)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__departmen__locat__35BCFE0A");
             });
 
             modelBuilder.Entity<dependent>(entity =>
             {
                 entity.HasKey(e => e.dependent_id)
-                    .HasName("PK__dependen__F25E28CE068989D7");
+                    .HasName("PK__dependen__F25E28CE3AEA3689");
 
                 entity.Property(e => e.first_name)
                     .HasMaxLength(50)
@@ -77,17 +76,12 @@ namespace TestApp.Models
                 entity.Property(e => e.relationship)
                     .HasMaxLength(25)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.employee)
-                    .WithMany(p => p.dependents)
-                    .HasForeignKey(d => d.employee_id)
-                    .HasConstraintName("FK__dependent__emplo__412EB0B6");
             });
 
             modelBuilder.Entity<employee>(entity =>
             {
                 entity.HasKey(e => e.employee_id)
-                    .HasName("PK__employee__C52E0BA8CC340997");
+                    .HasName("PK__employee__C52E0BA8894FA55E");
 
                 entity.Property(e => e.email)
                     .HasMaxLength(100)
@@ -108,28 +102,12 @@ namespace TestApp.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.salary).HasColumnType("decimal(8, 2)");
-
-                entity.HasOne(d => d.department)
-                    .WithMany(p => p.employees)
-                    .HasForeignKey(d => d.department_id)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__employees__depar__3D5E1FD2");
-
-                entity.HasOne(d => d.job)
-                    .WithMany(p => p.employees)
-                    .HasForeignKey(d => d.job_id)
-                    .HasConstraintName("FK__employees__job_i__3C69FB99");
-
-                entity.HasOne(d => d.manager)
-                    .WithMany(p => p.Inversemanager)
-                    .HasForeignKey(d => d.manager_id)
-                    .HasConstraintName("FK__employees__manag__3E52440B");
             });
 
             modelBuilder.Entity<job>(entity =>
             {
                 entity.HasKey(e => e.job_id)
-                    .HasName("PK__jobs__6E32B6A56AAC0B1B");
+                    .HasName("PK__jobs__6E32B6A5090F74D1");
 
                 entity.Property(e => e.job_title)
                     .HasMaxLength(35)
@@ -143,7 +121,7 @@ namespace TestApp.Models
             modelBuilder.Entity<location>(entity =>
             {
                 entity.HasKey(e => e.location_id)
-                    .HasName("PK__location__771831EA4AD55A9C");
+                    .HasName("PK__location__771831EAF88813A1");
 
                 entity.Property(e => e.city)
                     .HasMaxLength(30)
@@ -165,17 +143,12 @@ namespace TestApp.Models
                 entity.Property(e => e.street_address)
                     .HasMaxLength(40)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.country)
-                    .WithMany(p => p.locations)
-                    .HasForeignKey(d => d.country_id)
-                    .HasConstraintName("FK__locations__count__2E1BDC42");
             });
 
             modelBuilder.Entity<region>(entity =>
             {
                 entity.HasKey(e => e.region_id)
-                    .HasName("PK__regions__01146BAE581D3DA3");
+                    .HasName("PK__regions__01146BAE06A5BD73");
 
                 entity.Property(e => e.region_name)
                     .HasMaxLength(25)
