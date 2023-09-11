@@ -4,7 +4,7 @@ using TestApp.Models;
 
 namespace TestApp.Areas.API.Controllers
 {
-    [Route("api/[controller]/[Action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class EmployeesController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace TestApp.Areas.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEmployees()
+        public IActionResult GetEmployeeList()
         {
             try
             {
@@ -25,6 +25,25 @@ namespace TestApp.Areas.API.Controllers
                 {
                     status = "success",
                     data = employees
+                };
+            }
+            catch
+            {
+                throw;
+            }
+            return Ok(Data);
+        }
+
+        [HttpGet]
+        public IActionResult GetEmployeeById([FromQuery] int id)
+        {
+            try
+            {
+                var employee = db_context.employees.Where(o => o.employee_id == id).FirstOrDefault();
+                Data = new
+                {
+                    status = "success",
+                    data = employee
                 };
             }
             catch
